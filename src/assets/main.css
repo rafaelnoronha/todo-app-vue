@@ -1,9 +1,19 @@
 @import './fonts.css';
+@import './var.css';
 
 body {
     font-family: 'Amatic SC', cursive;
 }
 
+::selection {
+    background: var(--black);
+    color: #ffffff;
+}
+
 .fs-5rem {
     font-size: 5rem;
+}
+
+.ff-shadows {
+    font-family: 'Shadows Into Light', cursive;
 }
