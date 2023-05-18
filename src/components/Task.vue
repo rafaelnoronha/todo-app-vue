@@ -1,27 +1,42 @@
 <script setup>
+    import { computed, defineEmits } from 'vue'
 
+    const props = defineProps( {
+        task: {
+            type: Object,
+            required: true
+        }
+    } )
+
+    const iconTaskState = computed( () => props.task.status ? 'bi-hand-thumbs-up-fill' : 'bi-hand-thumbs-down-fill' )
+    const taskText = computed( () => props.task.status ? 'text-decoration-line-through' : '' )
+    
+    const emit = defineEmits( [
+        'delete',
+        'changeStatus'
+    ] )
 </script>
 
 <template>
     <div class="col-md-3">
-        <div class="card text-bg-light mb-3 ff-shadows rounded-0">
+        <div class="card text-bg-dark mb-3 ff-shadows rounded-0">
             <div class="card-header d-flex justify-content-between p-0">
                 <div class="header-button position-relative ms-1">
                     <i class="bi bi-pin-angle-fill position-absolute top-50 start-50 translate-middle" />
                 </div>
                 <div class="header-button position-relative">
-                    <button class="btn btn-light w-100 h-100 rounded-0">
-                        <i class="bi bi-hand-thumbs-down-fill position-absolute top-50 start-50 translate-middle" />
+                    <button class="btn btn-dark w-100 h-100 rounded-0" @click="emit( 'changeStatus', { ...props.task, status: !props.task.status } )">
+                        <i class="bi position-absolute top-50 start-50 translate-middle" :class="iconTaskState" />
                     </button>
                 </div>
             </div>
             <div class="card-body">
-                <p class="card-text">
-                    <slot />
+                <p class="card-text" :class="taskText">
+                    {{ props.task.description }}
                 </p>
             </div>
             <div class="card-footer p-0">
-                <button class="btn btn-dark w-100 rounded-0" type="button"><i class="bi bi-trash-fill" /> Exclude</button>
+                <button class="btn btn-dark w-100 rounded-0" type="button" @click="emit( 'delete', props.task )"><i class="bi bi-trash-fill" /> Delete</button>
             </div>
         </div>
     </div>
@@ -29,8 +44,8 @@
 
 <style scoped>
     ::selection {
-        background: #ffffff;
-        color: #212529;
+        background: var(--black);
+        color: #ffffff;
     }
 
     .header-button {
