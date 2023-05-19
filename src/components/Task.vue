@@ -18,7 +18,7 @@
 </script>
 
 <template>
-    <div class="col-md-3">
+    <div class="col-md-6 col-lg-4 col-xl-3">
         <div class="card text-bg-dark mb-3 ff-shadows rounded-0">
             <div class="card-header d-flex justify-content-between p-0">
                 <div class="header-button position-relative ms-1">
@@ -44,8 +44,8 @@
 
 <style scoped>
     ::selection {
-        background: var(--black);
-        color: #ffffff;
+        background: #ffffff;
+        color: var(--black);
     }
 
     .header-button {
